@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TabHost
+        android:id="@+id/tabhost"
+        android:layout_width="200dip"
+        android:layout_height="300dip"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinnerListOfPlaces"
+                        android:layout_width="match_parent"
+                        android:layout_weight="15"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="15"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_weight="1"
+                            android:text="@string/estimatedWaitingTime"/>
+
+                        <TextView
+                            android:id="@+id/textViewWaitingTime"
+                            android:textColor="@color/colorAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_weight="2" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_weight="1"
+                            android:text="@string/durationReservation" />
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectDuration"
+                            android:layout_width="match_parent"
+                            android:layout_weight="2"
+                            android:layout_height="54dp" />
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/acceptNewReservationButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="129dp"
+                        app:srcCompat="@android:drawable/ic_secure"
+                        android:background="@color/colorPrimary"
+                        android:layout_marginBottom="5dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+</RelativeLayout>
