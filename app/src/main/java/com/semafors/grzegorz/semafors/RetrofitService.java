@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -23,4 +24,7 @@ public interface RetrofitService {
 
     @GET("reservationPlace/all/{tokenValue}")
     Call<List<ReservationPlace>> getReservationPlace(@Path("tokenValue")UUID tokenValue);
+
+    @PUT("reservation/add/{tokenValue}")
+    Call<Boolean> addReservation(@Body Reservation reservation, @Path("tokenValue")UUID tokenValue);
 }

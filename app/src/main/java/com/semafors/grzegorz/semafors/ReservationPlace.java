@@ -9,6 +9,9 @@ public class ReservationPlace {
     Long id;
     String name;
 
+    public ReservationPlace() {
+    }
+
     public ReservationPlace(Long id, String name) {
         this.id = id;
         this.name = name;

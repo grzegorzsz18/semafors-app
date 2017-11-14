@@ -107,6 +107,22 @@ public class ConnectionService {
         });
     }
 
+    public void addReservation(Reservation reservation, final MainActivity mainActivity){
+        Toast.makeText(mainActivity, "Added", Toast.LENGTH_SHORT).show();
+        final Call<Boolean> call = retrofitService.addReservation(reservation,ConnectionService.getUser().getToken().getValue());
+        call.enqueue(new retrofit2.Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, retrofit2.Response<Boolean> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+    }
+
     public static void setUser(User u){
         user = u;
     }

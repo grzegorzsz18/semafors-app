@@ -88,7 +88,8 @@
                         android:layout_height="129dp"
                         app:srcCompat="@android:drawable/ic_secure"
                         android:background="@color/colorPrimary"
-                        android:layout_marginBottom="5dp"/>
+                        android:layout_marginBottom="5dp"
+                        android:onClick="addReservation"/>
 
                 </LinearLayout>
 

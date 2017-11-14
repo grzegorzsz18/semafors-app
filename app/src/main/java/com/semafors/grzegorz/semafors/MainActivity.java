@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             connectionService.setEstimationWaitingTime(this, reservationPlace.getId(), time);
             return;
         }
-        connectionService.setEstimationWaitingTime(this, 1l, time);
     }
 
     public void setEstmatedWaitingTime(Long time){
@@ -107,5 +106,17 @@ public class MainActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.addAll(reservationPlaces);
+    }
+
+    public void addReservation(View view){
+        Spinner spinnerPlace = (Spinner)findViewById(R.id.spinnerListOfPlaces);
+        Spinner selectTimeSpinner = (Spinner) findViewById(R.id.spinnerSelectDuration);
+        ReservationPlace reservationPlace = new ReservationPlace();
+        Long reservationId = ((ReservationPlace)spinnerPlace.getSelectedItem()).getId();
+        reservationPlace.setId(reservationId);
+        Time enumTime = (Time) selectTimeSpinner.getSelectedItem();
+        Long time = enumTime.getValue();
+        Reservation reservation = new Reservation(true,time, reservationPlace);
+        connectionService.addReservation(reservation, this);
     }
 }
