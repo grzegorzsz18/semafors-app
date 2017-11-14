@@ -2,6 +2,9 @@ package com.semafors.grzegorz.semafors;
 
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -78,6 +81,27 @@ public class ConnectionService {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
+                Toast.makeText(mainActivity, "Problem with connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    public void setReservationPlaces(final MainActivity mainActivity){
+        final Call<List<ReservationPlace>> call = retrofitService.getReservationPlace(getUser().getToken().getValue());
+        call.enqueue(new retrofit2.Callback<List<ReservationPlace>>() {
+            @Override
+            public void onResponse(Call<List<ReservationPlace>> call, retrofit2.Response<List<ReservationPlace>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        List<ReservationPlace> reservationPlaces = response.body();
+                        mainActivity.setReservationPlaces(reservationPlaces);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ReservationPlace>> call, Throwable t) {
                 Toast.makeText(mainActivity, "Problem with connection", Toast.LENGTH_SHORT).show();
             }
         });

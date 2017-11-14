@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,13 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeTab1(){
-        Spinner spinner = (Spinner)findViewById(R.id.spinnerListOfPlaces);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinnerAdapter.addAll(userService.getReservationPlaces());
-        spinnerAdapter.notifyDataSetChanged();
-
+        connectionService.setReservationPlaces(this);
         Spinner selectTimeSpinner = (Spinner) findViewById(R.id.spinnerSelectDuration);
         selectTimeSpinner.setAdapter(new ArrayAdapter<Time>(this,android.R.layout.simple_spinner_item,Time.values()));
         selectTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -68,14 +62,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+        Spinner spinner = (Spinner)findViewById(R.id.spinnerListOfPlaces);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getInformationAboutWaitingTime();
+            }
 
-    // przystosowac do miejsc
-    public void getInformationAboutWaitingTime(){
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+    public void getInformationAboutWaitingTime() {
         Spinner selectTimeSpinner = (Spinner) findViewById(R.id.spinnerSelectDuration);
-        Time enumTime = (Time)selectTimeSpinner.getSelectedItem();
+        Time enumTime = (Time) selectTimeSpinner.getSelectedItem();
         Long time = enumTime.getValue();
-        connectionService.setEstimationWaitingTime(this,1l,time);
+
+        Spinner selectReservationPlace = (Spinner) findViewById(R.id.spinnerListOfPlaces);
+        ReservationPlace reservationPlace = (ReservationPlace) selectReservationPlace.getSelectedItem();
+        if (reservationPlace != null) {
+            connectionService.setEstimationWaitingTime(this, reservationPlace.getId(), time);
+            return;
+        }
+        connectionService.setEstimationWaitingTime(this, 1l, time);
     }
 
     public void setEstmatedWaitingTime(Long time){
@@ -88,5 +99,13 @@ public class MainActivity extends AppCompatActivity {
                 TimeUnit.MILLISECONDS.toHours(time),
                 TimeUnit.MILLISECONDS.toMinutes(time) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(time))
         );
+    }
+
+    public void setReservationPlaces(List<ReservationPlace> reservationPlaces){
+        Spinner spinner = (Spinner)findViewById(R.id.spinnerListOfPlaces);
+        ArrayAdapter<ReservationPlace> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, android.R.id.text1);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.addAll(reservationPlaces);
     }
 }

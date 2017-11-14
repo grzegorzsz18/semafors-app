@@ -20,4 +20,7 @@ public interface RetrofitService {
     @GET("/reservation/byPlace/{placeId}/{duration}/{tokenValue}")
     Call<Long> getAvaliableStartTime(@Path("placeId") Long placeId, @Path("duration") Long duration,
                                      @Path("tokenValue")UUID tokenValue);
+
+    @GET("reservationPlace/all/{tokenValue}")
+    Call<List<ReservationPlace>> getReservationPlace(@Path("tokenValue")UUID tokenValue);
 }

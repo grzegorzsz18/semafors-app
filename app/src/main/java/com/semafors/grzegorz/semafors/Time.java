@@ -12,8 +12,8 @@ public enum Time {
     SPINNER_TIME_20_MIN ("20 min", 20*60*1000l),
     SPINNER_TIME_30_MIN ("30 min", 30*60*1000l),
     SPINNER_TIME_45_MIN ("45 min", 45*60*1000l),
-    SPINNER_TIME_60_MIN ("60 min", 60*60*1000l);
-
+    SPINNER_TIME_60_MIN ("60 min", 60*60*1000l),
+    SPINNER_TIME_2H ("2 h", 2*60*60*1000l);
 
     private String name;
     private long value;

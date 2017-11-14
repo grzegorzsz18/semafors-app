@@ -23,14 +23,4 @@ public class UserService {
         }
         return userService;
     }
-
-    public List<String> getReservationPlaces(){
-        ArrayList<String> reservations = new ArrayList<>();
-        reservations.add("WC 1");
-        reservations.add("WC 2");
-        reservations.add("kolejka");
-        reservations.add("kino");
-        reservations.add("łazienka dom");
-        return reservations;
-    }
 }
