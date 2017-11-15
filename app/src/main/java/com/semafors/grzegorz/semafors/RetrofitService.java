@@ -27,4 +27,7 @@ public interface RetrofitService {
 
     @PUT("reservation/add/{tokenValue}")
     Call<Boolean> addReservation(@Body Reservation reservation, @Path("tokenValue")UUID tokenValue);
+
+    @GET("reservation/byUser/{tokenValue}")
+    Call<List<Reservation>> getReservationByUser(@Path("tokenValue") UUID tokenValue);
 }

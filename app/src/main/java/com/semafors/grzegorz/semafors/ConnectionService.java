@@ -123,6 +123,25 @@ public class ConnectionService {
         });
     }
 
+    public void getReservationsByUser(final MainActivity mainActivity){
+        final Call<List<Reservation>> call = retrofitService.getReservationByUser(ConnectionService.getUser().getToken().getValue());
+        call.enqueue(new retrofit2.Callback<List<Reservation>>() {
+            @Override
+            public void onResponse(Call<List<Reservation>> call, retrofit2.Response<List<Reservation>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        List<Reservation> reservation = response.body();
+                        mainActivity.setFutureReservations(reservation);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reservation>> call, Throwable t) {
+            }
+        });
+    }
+
     public static void setUser(User u){
         user = u;
     }

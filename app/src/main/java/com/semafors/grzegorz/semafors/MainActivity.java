@@ -1,16 +1,19 @@
 package com.semafors.grzegorz.semafors;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,8 +46,22 @@ public class MainActivity extends AppCompatActivity {
         spec.setContent(R.id.tab3);
         spec.setIndicator("Expired");
         host.addTab(spec);
-        initializeTab1();
 
+        initializeTab2();
+        initializeTab1();
+    }
+
+    private void initializeTab2(){
+        SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        refreshTab2();
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshTab2();
+                SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+                refresh.setRefreshing(false);
+            }
+        });
     }
 
     private void initializeTab1(){
@@ -118,5 +135,17 @@ public class MainActivity extends AppCompatActivity {
         Long time = enumTime.getValue();
         Reservation reservation = new Reservation(true,time, reservationPlace);
         connectionService.addReservation(reservation, this);
+    }
+
+    public void setFutureReservations(List<Reservation> reservations){
+        ListView futureReservation = (ListView)findViewById(R.id.futureReservation);
+        ArrayAdapter<Reservation> adapter = new ArrayAdapter<Reservation>(this,android.R.layout.simple_list_item_1, android.R.id.text1);
+        adapter.addAll(reservations);
+        futureReservation.setAdapter(adapter);
+    }
+
+    private void refreshTab2(){
+        connectionService.getReservationsByUser(this);
+
     }
 }

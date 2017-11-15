@@ -1,5 +1,7 @@
 package com.semafors.grzegorz.semafors;
 
+import java.util.Date;
+
 /**
  * Created by grzegorz on 14.11.17.
  */
@@ -65,5 +67,10 @@ public class Reservation {
 
     public void setDuring(Long during) {
         this.during = during;
+    }
+
+    @Override
+    public String toString() {
+        return ((new Date(this.getStartTime())).toGMTString() + " " + this.reservationPlace.getName());
     }
 }
